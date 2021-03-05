@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Larry's Lottery</title>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+    winningNums = new Array(5);
+
+    // 5 numbers
+    for (i = 0; i < 5; i++) {
+      randomNum = (Math.random() * 48) + 1;
+      randomNum = Math.floor(randomNum);
+
+      winningNums[i] = randomNum;
+    }
+
+    winningNums.sort(function(a, b) {
+      return a - b
+    })
+
+    //1 lucky ball
+    luckyNum = Math.floor(((Math.random() * 18) + 1));
+
+    //player numbers
+    playerInput = prompt("Enter your 5 lottery numbers! Separate them with " +
+      "a space!", "");
+    //parse numbers
+    playerNums = playerInput.trim().split(" ");
+    playerNums.sort(function(a, b) {
+      return a - b
+    });
+
+    playerLucky = prompt("Now enter your 1 lucky number!", "");
+  </script>
+
+  <h1 style="text-align: center;">Welcome to Larry's Lottery!</h1>
+
+  <!-- Display Info -->
+  <p style="font-weight: bold;">Your Numbers: </p>
+
+  <script type="text/javascript">
+    for (i = 0; i < 5; i++) {
+      document.write(playerNums[i]);
+      if (i < 4) {
+        document.write(", ");
+      }
+    }
+  </script>
+  <hr>
+
+  <!-- winning numbers -->
+  <p style="font-weight: bold;">The Winning Numbers:</p>
+
+  <script type="text/javascript">
+    for (i = 0; i < 5; i++) {
+      document.write(winningNums[i]);
+      if (i < 4) {
+        document.write(", ");
+      }
+    }
+  </script>
+
+  <p style="font-weight: bold;">The Lucky Number:</p>
+
+  <script type="text/javascript">
+    document.write(luckyNum);
+  </script>
+  <hr>
+
+  <!-- matches -->
+  <p style="font-weight: bold;">Your Matches:</p>
+
+  <script type="text/javascript">
+    //matched nums
+    matchedNums = 0;
+
+    for (i = 0; i < 5; i++) {
+      for (j = 0; j < 5; j++) {
+        if (playerNums[i] == winningNums[j]) {
+          matchedNums++;
+
+          //to avoid double counting
+          playerNums[i] = -1;
+          break;
+        }
+      }
+    }
+
+    //lucky ball match
+    luckyBool = false;
+    if (luckyNum == playerLucky) {
+      luckyBool = true;
+    }
+
+    document.write("You had " + matchedNums + " matching number(s)! <br>");
+
+    if (luckyBool) {
+      document.write("Your lucky number matched! <br>");
+    }
+  </script>
+
+  <!-- prize reward -->
+  <p style="font-weight: bold;">Your Reward:</p>
+
+  <script type="text/javascript">
+    switch (matchedNums) {
+      case 0:
+        if (luckyBool) {
+          document.write("$4! <br>");
+        } else {
+          document.write("Better luck next time! <br>");
+        }
+        break;
+
+      case 1:
+        if (luckyBool) {
+          document.write("$6! <br>");
+        } else {
+          document.write("Better luck next time! <br>");
+        }
+        break;
+
+      case 2:
+        if (luckyBool) {
+          document.write("$25! <br>");
+        } else {
+          document.write("$3! <br>");
+        }
+        break;
+
+      case 3:
+        if (luckyBool) {
+          document.write("$150! <br>");
+        } else {
+          document.write("$20! <br>");
+        }
+        break;
+
+      case 4:
+        if (luckyBool) {
+          document.write("$5,000! <br>");
+        } else {
+          document.write("$200! <br>");
+        }
+        break;
+
+      case 5:
+        if (luckyBool) {
+          document.write("$7,000 a WEEK for LIFE! <br>");
+        } else {
+          document.write("$25,000 a YEAR for LIFE! <br>");
+        }
+        break;
+    }
+  </script>
+
+</body>
+
+</html>
